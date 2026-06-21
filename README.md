@@ -2,6 +2,8 @@
 
 Webová aplikace pro **měření ztrát sklízecí mlátičky** (kombajnu) u **obilnin a olejnin** s přepočtem na **1 hektar**.
 
+🔗 **Živá aplikace:** https://malaveselahranolka.github.io/ztraty-kombajn-/
+
 Aplikace pomáhá agronomovi nebo obsluze kombajnu rychle v poli vyhodnotit, kolik
 zrna padá za stroj, vyjádřit ztrátu v **kg/ha** i v **% z výnosu** a rozlišit,
 zda ztráty vznikají na **žacím ústrojí** nebo při **mlácení a separaci**.

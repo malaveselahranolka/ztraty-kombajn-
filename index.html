@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2e7d32" />
+  <meta name="description" content="Aplikace pro měření ztrát sklízecí mlátičky u obilnin a olejnin – výpočet ztrát v kg/ha a v % z výnosu." />
+  <title>Ztráty kombajnu – měření ztrát sklízecí mlátičky</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="wrap">
+      <h1>🌾 Ztráty kombajnu</h1>
+      <p class="subtitle">Měření ztrát sklízecí mlátičky – obiloviny &amp; olejniny (kg/ha)</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 1. Plodina -->
+    <section class="card">
+      <h2>1. Plodina</h2>
+      <div class="field">
+        <label for="crop">Vyber plodinu</label>
+        <select id="crop"></select>
+      </div>
+      <div class="field">
+        <label for="tgw">
+          Hmotnost tisíce zrn – HTZ (g)
+          <span class="hint" title="HTZ = hmotnost 1000 zrn dané plodiny. Lze upravit podle laboratorního rozboru.">ⓘ</span>
+        </label>
+        <input type="number" id="tgw" min="0" step="0.1" inputmode="decimal" />
+      </div>
+    </section>
+
+    <!-- 2. Měřicí rámeček -->
+    <section class="card">
+      <h2>2. Měřicí plocha</h2>
+      <div class="field">
+        <label>Způsob zadání plochy</label>
+        <div class="seg" id="areaMode">
+          <button type="button" data-mode="dims" class="active">Rozměry rámečku</button>
+          <button type="button" data-mode="area">Plocha přímo</button>
+        </div>
+      </div>
+
+      <div id="dimsInputs" class="row">
+        <div class="field">
+          <label for="frameW">Šířka (cm)</label>
+          <input type="number" id="frameW" min="1" step="1" value="50" inputmode="decimal" />
+        </div>
+        <div class="field">
+          <label for="frameL">Délka (cm)</label>
+          <input type="number" id="frameL" min="1" step="1" value="50" inputmode="decimal" />
+        </div>
+      </div>
+
+      <div id="areaInputs" class="field hidden">
+        <label for="frameArea">Plocha rámečku (m²)</label>
+        <input type="number" id="frameArea" min="0.001" step="0.01" value="0.25" inputmode="decimal" />
+      </div>
+      <p class="note">Měřená plocha: <strong id="areaInfo">0,25 m²</strong></p>
+    </section>
+
+    <!-- 3. Počet zrn -->
+    <section class="card">
+      <h2>3. Spočítaná zrna</h2>
+      <p class="muted">Polož rámeček na zem za kombajnem a spočítej vypadlá zrna. Pro přesnost zadej několik měření – aplikace je zprůměruje.</p>
+
+      <fieldset class="measure">
+        <legend>Celkové ztráty <span class="muted">(za mlátičkou)</span></legend>
+        <div id="totalCounts" class="counts"></div>
+        <button type="button" class="btn-ghost" id="addTotal">+ přidat měření</button>
+        <p class="note">Průměr: <strong id="totalAvg">0</strong> zrn / rámeček</p>
+      </fieldset>
+
+      <fieldset class="measure">
+        <legend>
+          <label class="chk"><input type="checkbox" id="enableHeader" /> Měřit i ztráty žacím ústrojím</label>
+        </legend>
+        <div id="headerBlock" class="hidden">
+          <p class="muted">Změř zrna pod žací lištou (před průchodem mlátičkou). Rozdíl pak ukáže ztráty mlácením a separací.</p>
+          <div id="headerCounts" class="counts"></div>
+          <button type="button" class="btn-ghost" id="addHeader">+ přidat měření</button>
+          <p class="note">Průměr: <strong id="headerAvg">0</strong> zrn / rámeček</p>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- 4. Výnos -->
+    <section class="card">
+      <h2>4. Výnos <span class="muted">(volitelné)</span></h2>
+      <div class="field">
+        <label for="yield">Skutečný / očekávaný výnos (t/ha)</label>
+        <input type="number" id="yield" min="0" step="0.1" placeholder="např. 7.5" inputmode="decimal" />
+      </div>
+      <p class="muted">Po zadání výnosu se zobrazí ztráta v % – klíčový ukazatel pro hodnocení nastavení kombajnu.</p>
+    </section>
+
+    <!-- Výsledky -->
+    <section class="card results" id="results">
+      <h2>Výsledek</h2>
+      <div class="result-grid">
+        <div class="result-box">
+          <span class="result-label">Celková ztráta</span>
+          <span class="result-value"><span id="rTotalKg">0</span> <small>kg/ha</small></span>
+          <span class="result-sub"><span id="rTotalPerc">–</span> z výnosu</span>
+        </div>
+        <div class="result-box hidden" id="boxHeader">
+          <span class="result-label">Ztráta žací lištou</span>
+          <span class="result-value"><span id="rHeaderKg">0</span> <small>kg/ha</small></span>
+        </div>
+        <div class="result-box hidden" id="boxSep">
+          <span class="result-label">Ztráta mlácením + separací</span>
+          <span class="result-value"><span id="rSepKg">0</span> <small>kg/ha</small></span>
+        </div>
+        <div class="result-box">
+          <span class="result-label">Zrn na m²</span>
+          <span class="result-value"><span id="rPerM2">0</span> <small>ks/m²</small></span>
+        </div>
+      </div>
+      <div class="verdict" id="verdict">Zadej hodnoty pro výpočet.</div>
+      <button type="button" class="btn-primary" id="saveBtn">💾 Uložit do historie</button>
+    </section>
+
+    <!-- Historie -->
+    <section class="card">
+      <h2>Historie měření</h2>
+      <div id="history" class="history"><p class="muted">Zatím žádná uložená měření.</p></div>
+      <button type="button" class="btn-ghost danger hidden" id="clearHistory">Smazat historii</button>
+    </section>
+
+    <!-- Metodika -->
+    <section class="card info">
+      <h2>Jak měřit a jak se počítá</h2>
+      <ol>
+        <li>Za jízdy kombajnu polož na zem rámeček o známé ploše (doporučeno 0,5 × 0,5 m = 0,25 m²) do prostoru, kam dopadají ztráty.</li>
+        <li>Spočítej všechna celá vypadlá zrna v rámečku. Měření 3–5× zopakuj na různých místech.</li>
+        <li>Zadej HTZ (hmotnost tisíce zrn) – přesné HTZ je klíčové zejména u řepky.</li>
+      </ol>
+      <p class="formula">
+        ztráta (kg/ha) = (počet zrn ÷ plocha rámečku v m²) × HTZ(g) ÷ 1000 × 10&nbsp;000 ÷ 1000
+      </p>
+      <p class="muted">
+        Tj. počet zrn na m² převedeme přes hmotnost jednoho zrna na hmotnost na hektar.
+        Ztráta v % se počítá vůči zadanému výnosu. Orientačně se za přijatelné u obilovin
+        považují celkové ztráty do ~1 % výnosu, u řepky je třeba sledovat ztráty obzvlášť pečlivě.
+      </p>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Aplikace funguje offline. Data se ukládají pouze ve tvém prohlížeči.</p>
+  </footer>
+
+  <script src="js/crops.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

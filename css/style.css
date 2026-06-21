@@ -121,6 +121,15 @@ input:focus, select:focus { outline: 2px solid var(--green); border-color: var(-
 .result-value small { font-size: 0.8rem; font-weight: 600; color: var(--muted); }
 .result-sub { font-size: 0.85rem; color: var(--muted); }
 
+.result-total {
+  margin-top: 12px; padding: 14px 16px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--green), var(--green-d)); color: #fff;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.result-total .result-label { color: rgba(255, 255, 255, 0.85); }
+.result-total .result-value { color: #fff; }
+.result-total .result-value small { color: rgba(255, 255, 255, 0.85); }
+
 .verdict {
   margin-top: 14px; padding: 12px 14px; border-radius: 10px;
   font-weight: 700; text-align: center; background: var(--bg); color: var(--text);

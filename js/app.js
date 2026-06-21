@@ -33,12 +33,15 @@ function initCrops() {
     sel.appendChild(og);
   });
   sel.value = "wheat";
-  syncTgwFromCrop();
+  syncCropDefaults();
 }
 
-function syncTgwFromCrop() {
+function syncCropDefaults() {
   const c = cropById($("crop").value);
-  if (c) $("tgw").value = c.tgw;
+  if (c) {
+    $("tgw").value = c.tgw;
+    $("price").value = c.price;
+  }
 }
 
 /* ---------- počítadla měření (řádky se zrny) ---------- */
@@ -124,8 +127,33 @@ function recalc() {
   const sepKg = Math.max(0, totalKg - headerKg);
   const perM2 = area ? total.avg / area : 0;
 
+  const totalT = totalKg / 1000; // kg/ha -> t/ha
   $("rTotalKg").textContent = fmt(totalKg, 1);
+  $("rTotalT").textContent = fmt(totalT, 3);
   $("rPerM2").textContent = fmt(perM2, 0);
+
+  // finanční ztráta
+  const price = parseFloat($("price").value); // Kč/t
+  let moneyHa = null;
+  const hasPrice = isFinite(price) && price > 0;
+  $("boxMoney").classList.toggle("hidden", !hasPrice);
+  if (hasPrice) {
+    moneyHa = totalT * price; // Kč/ha
+    $("rMoneyHa").textContent = fmt(moneyHa, 0);
+  }
+
+  // přepočet na celý pozemek
+  const fieldHa = parseFloat($("fieldArea").value);
+  const hasField = isFinite(fieldHa) && fieldHa > 0;
+  $("boxField").classList.toggle("hidden", !hasField);
+  let fieldT = null, fieldMoney = null;
+  if (hasField) {
+    fieldT = totalT * fieldHa; // t
+    $("rFieldHa").textContent = fmt(fieldHa, fieldHa % 1 ? 1 : 0);
+    $("rFieldT").textContent = fmt(fieldT, 2);
+    $("rFieldMoney").textContent = hasPrice ? fmt(fieldT * price, 0) : "–";
+    if (hasPrice) fieldMoney = fieldT * price;
+  }
 
   // procenta z výnosu
   const yieldTha = parseFloat($("yield").value);
@@ -163,9 +191,10 @@ function recalc() {
   lastResult = {
     crop: cropById($("crop").value)?.name || "?",
     tgw, area, perM2,
-    totalKg, headerKg: headerOn ? headerKg : null,
+    totalKg, totalT, headerKg: headerOn ? headerKg : null,
     sepKg: headerOn ? sepKg : null,
     percent, yieldTha: isFinite(yieldTha) ? yieldTha : null,
+    moneyHa, fieldHa: hasField ? fieldHa : null, fieldT, fieldMoney,
     samples: total.n,
   };
 }
@@ -195,11 +224,12 @@ function renderHistory() {
     const item = document.createElement("div");
     item.className = "hist-item";
     const perc = r.percent != null ? ` · ${fmt(r.percent, 2)} %` : "";
+    const money = r.moneyHa != null ? ` · ${fmt(r.moneyHa, 0)} Kč/ha` : "";
     item.innerHTML = `
       <div>
         <strong>${r.crop}</strong>
         <span class="muted"> ${r.date}</span><br />
-        <span>${fmt(r.totalKg, 1)} kg/ha${perc}</span>
+        <span>${fmt(r.totalKg, 1)} kg/ha${perc}${money}</span>
       </div>`;
     const del = document.createElement("button");
     del.className = "btn-del";
@@ -227,6 +257,7 @@ function saveCurrent() {
     crop: lastResult.crop,
     totalKg: lastResult.totalKg,
     percent: lastResult.percent,
+    moneyHa: lastResult.moneyHa,
   });
   saveHistory(list.slice(0, 50));
   renderHistory();
@@ -235,10 +266,10 @@ function saveCurrent() {
 /* ---------- události ---------- */
 function bindEvents() {
   $("crop").addEventListener("change", () => {
-    syncTgwFromCrop();
+    syncCropDefaults();
     recalc();
   });
-  ["tgw", "frameW", "frameL", "frameArea", "yield"].forEach((id) =>
+  ["tgw", "frameW", "frameL", "frameArea", "yield", "price", "fieldArea"].forEach((id) =>
     $(id).addEventListener("input", recalc)
   );
 

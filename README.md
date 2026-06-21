@@ -14,7 +14,8 @@ zda ztráty vznikají na **žacím ústrojí** nebo při **mlácení a separaci*
 - 📐 Zadání měřicí plochy buď **rozměry rámečku** (cm), nebo **plochou** (m²)
 - 🔢 **Více měření** se automatickým průměrováním pro vyšší přesnost
 - 🌱 Volitelné rozlišení **ztrát žacím ústrojím** vs. **celkových** → dopočet ztrát mlácením a separací
-- 📊 Výsledek v **kg/ha**, **zrn/m²** a **% z výnosu**
+- 📊 Výsledek v **kg/ha**, **t/ha**, **zrn/m²** a **% z výnosu**
+- 💰 **Finanční ztráta** v Kč/ha podle výkupní ceny + přepočet na **celý pozemek** (t a Kč)
 - ✅ Slovní **hodnocení** (výborné / přijatelné / zvýšené / vysoké ztráty)
 - 💾 **Historie měření** uložená lokálně v prohlížeči
 - 📱 Funguje **offline**, optimalizováno pro mobil
@@ -29,9 +30,11 @@ zda ztráty vznikají na **žacím ústrojí** nebo při **mlácení a separaci*
 ## Výpočet
 
 ```
-zrn/m²         = počet zrn ÷ plocha rámečku [m²]
-ztráta [kg/ha] = zrn/m² × HTZ[g] ÷ 1000 × 10 000 ÷ 1000
-ztráta [%]     = ztráta[kg/ha] ÷ (výnos[kg/ha] + ztráta[kg/ha]) × 100
+zrn/m²              = počet zrn ÷ plocha rámečku [m²]
+ztráta [kg/ha]      = zrn/m² × HTZ[g] ÷ 1000 × 10 000 ÷ 1000
+ztráta [%]          = ztráta[kg/ha] ÷ (výnos[kg/ha] + ztráta[kg/ha]) × 100
+finanční [Kč/ha]    = ztráta[kg/ha] ÷ 1000 × cena[Kč/t]
+ztráta za pozemek   = finanční[Kč/ha] × výměra[ha]
 ```
 
 Kde `HTZ ÷ 1000` je hmotnost jednoho zrna v gramech a `10 000` je počet m² v hektaru.

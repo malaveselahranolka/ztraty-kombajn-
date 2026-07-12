@@ -6,7 +6,7 @@ const hl = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<span class="hl">$1</span>')
 // **x** → červené em (cover / cta titulky)
 const em = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<em>$1</em>');
 
-const brand   = (ctx) => `<div class="brand"><span class="brand-mark">${esc(ctx.logo || 'FA')}</span></div>`;
+const brand   = (ctx) => { const t = esc(ctx.logo || 'FA'); return `<div class="brand"><span class="brand-mark"><i>${t.slice(0, 1)}</i>${t.slice(1)}</span></div>`; };
 const cTop    = (ctx) => `<span class="counter"><b>${pad2(ctx.page)}</b> / ${pad2(ctx.total)}</span>`;
 const footClr = (ctx) => ctx.theme === 'dark' ? 'var(--steel-lt)' : 'var(--steel)';
 const knurl   = () => `<div class="knurl"><div class="knurl-fill"></div></div>`;

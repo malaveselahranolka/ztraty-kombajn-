@@ -19,8 +19,11 @@ button { font-family: inherit; cursor: pointer; }
   position: sticky; top: 0; z-index: 20;
 }
 .brand-lockup { display: flex; align-items: center; gap: 12px; margin-right: 6px; }
-.brand-lockup .mk { width: 34px; height: 34px; border-radius: 9px; background: var(--red); color: #fff;
-  display: grid; place-items: center; font-family: "Archivo"; font-weight: 900; font-size: 15px; letter-spacing: -0.04em; }
+.brand-lockup .mk { font-family: "Archivo"; font-weight: 900; font-size: 26px; line-height: 0.9;
+  letter-spacing: -0.05em; color: #ECEDE8; position: relative; padding-bottom: 6px; display: inline-block; }
+.brand-lockup .mk i { font-style: normal; color: var(--red); }
+.brand-lockup .mk::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 3px;
+  background: var(--red); border-radius: 1px; }
 .brand-lockup .tt { font-family: "Archivo"; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; font-size: 15px; }
 .brand-lockup .tt small { display: block; font-family: "IBM Plex Mono", monospace; font-weight: 400;
   text-transform: none; letter-spacing: 0.04em; font-size: 11px; color: var(--steel); }

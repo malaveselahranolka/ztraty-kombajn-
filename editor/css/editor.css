@@ -48,7 +48,8 @@ button { font-family: inherit; cursor: pointer; }
 /* ---------- LAYOUT ---------- */
 .workspace { flex: 1; display: grid; grid-template-columns: 250px 1fr 340px; min-height: 0; }
 @media (max-width: 1100px) { .workspace { grid-template-columns: 200px 1fr 300px; } }
-@media (max-width: 860px)  { .workspace { grid-template-columns: 1fr; } .rail-left, .rail-right { max-height: none; } }
+
+.mobtabs { display: none; }
 
 .rail-left, .rail-right { overflow-y: auto; border-color: var(--line); background: var(--panel); }
 .rail-left  { border-right: 1px solid var(--line); padding: 14px 12px; }
@@ -137,3 +138,39 @@ button { font-family: inherit; cursor: pointer; }
 
 /* offscreen render target for export */
 #exportStage { position: fixed; left: -99999px; top: 0; }
+
+/* =====================================================================
+   MOBILE (přepínání záložkami) — na konci, aby přebilo základní pravidla
+   ===================================================================== */
+@media (max-width: 860px) {
+  body { height: auto; min-height: 100dvh; }
+
+  .topbar { position: static; }
+  .topbar .grow { display: none; }
+  .topbar #projTitle { min-width: 0; flex: 1 1 140px; }
+  #addMenu { left: 12px; right: 12px; width: auto; }
+
+  .mobtabs {
+    display: flex; gap: 6px; padding: 8px 12px; position: sticky; top: 0; z-index: 15;
+    background: #101216; border-bottom: 1px solid var(--line);
+  }
+  .mobtabs button {
+    flex: 1; border: 1px solid var(--line); background: var(--panel-2); color: var(--steel-lt);
+    border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 600;
+  }
+  .mobtabs button.on { background: var(--red); border-color: var(--red); color: #fff; }
+
+  .workspace { display: block; flex: none; }
+  .workspace .rail-left,
+  .workspace .stage,
+  .workspace .rail-right { display: none; width: 100%; border: 0; max-height: none; }
+  .workspace .stage { padding: 18px 14px 44px; background: #0C0D10; place-items: center; }
+  .workspace .rail-right { padding: 16px 14px 90px; }
+
+  .workspace.tab-list .rail-left  { display: block; }
+  .workspace.tab-prev .stage      { display: grid; }
+  .workspace.tab-edit .rail-right { display: block; }
+
+  #slideList { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .slide-item { margin: 0; }
+}

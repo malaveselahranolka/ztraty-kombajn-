@@ -62,11 +62,29 @@ function refreshThumb(i) {
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ---------------- CENTER: preview ---------------- */
+const isMobile = () => window.matchMedia('(max-width: 860px)').matches;
+
 function renderPreview() {
   const stage = $('#stage'), wrap = $('#preview');
-  const availW = stage.clientWidth - 60, availH = stage.clientHeight - 60;
-  const k = Math.min(availW / 1080, availH / 1350, 0.62);
+  const availW = stage.clientWidth - (isMobile() ? 28 : 60);
+  let k;
+  if (isMobile()) {
+    k = Math.min(availW / 1080, 0.62);                       // na mobilu podle šířky
+  } else {
+    const availH = stage.clientHeight - 60;
+    k = Math.min(availW / 1080, availH / 1350, 0.62);
+  }
+  if (!(k > 0)) k = 0.3;
   mount(wrap, renderSlideElement(project, sel), 1080 * k);
+}
+
+/* ---------------- mobile tabs ---------------- */
+let tab = 'prev';
+function setTab(t) {
+  tab = t;
+  $('.workspace').className = 'workspace tab-' + t;
+  document.querySelectorAll('#mobtabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  requestAnimationFrame(() => { if (t === 'prev') renderPreview(); if (t === 'list') renderList(); });
 }
 
 /* ---------------- RIGHT: form ---------------- */
@@ -145,7 +163,7 @@ function rowsEditor(s, spec) {
 }
 
 /* ---------------- actions ---------------- */
-function selectSlide(i) { sel = i; renderList(); renderPreview(); renderForm(); }
+function selectSlide(i) { sel = i; renderList(); renderPreview(); renderForm(); if (isMobile()) setTab('edit'); }
 function softAll() { renderPreview(); refreshThumb(sel); save(); }
 
 function move(i, d) {
@@ -209,12 +227,17 @@ function initTopbar() {
     seg.querySelectorAll('button').forEach(x => x.classList.remove('on')); b.classList.add('on');
     scale = Number(b.dataset.s);
   }));
+
+  document.querySelectorAll('#mobtabs button').forEach(b =>
+    b.addEventListener('click', () => setTab(b.dataset.tab)));
 }
 
 function renderAll() { renderList(); renderPreview(); renderForm(); }
 
 /* ---------------- boot ---------------- */
-window.addEventListener('resize', () => renderPreview());
-document.fonts.ready.then(() => renderAll());
+let rzT;
+window.addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => { renderList(); renderPreview(); }, 150); });
+document.fonts.ready.then(() => { renderList(); renderPreview(); });
 initTopbar();
 renderAll();
+setTab('prev');

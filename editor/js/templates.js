@@ -6,7 +6,7 @@ const hl = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<span class="hl">$1</span>')
 // **x** → červené em (cover / cta titulky)
 const em = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<em>$1</em>');
 
-const BRAIN = `<svg class="brain-ico" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M60 12 C 50 6 36 8 32 18 C 22 17 15 27 21 34 C 12 39 13 51 23 53 C 22 63 35 67 43 60 C 49 65 60 62 60 54"/><path d="M60 12 C 70 6 84 8 88 18 C 98 17 105 27 99 34 C 108 39 107 51 97 53 C 98 63 85 67 77 60 C 71 65 60 62 60 54"/><path d="M60 12 L60 58"/><path d="M50 24 C 42 28 43 36 51 39"/><path d="M70 24 C 78 28 77 36 69 39"/></svg>`;
+const BRAIN = `<svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg>`;
 const brand   = (ctx) => { const t = esc(ctx.logo || 'FA'); return `<div class="brand"><span class="brand-mark">${BRAIN}<span class="fa"><i>${t.slice(0, 1)}</i>${t.slice(1)}</span></span></div>`; };
 const cTop    = (ctx) => `<span class="counter"><b>${pad2(ctx.page)}</b> / ${pad2(ctx.total)}</span>`;
 const footClr = (ctx) => ctx.theme === 'dark' ? 'var(--steel-lt)' : 'var(--steel)';

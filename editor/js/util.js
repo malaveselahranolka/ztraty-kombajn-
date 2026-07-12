@@ -49,3 +49,26 @@ export const ICON = {
   save:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>',
   plus:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
 };
+
+// Načte obrázek z file inputu, zmenší na maxW a zkomprimuje → data URL (JPEG).
+// Drží velikost rozumnou pro localStorage i export.
+export function readImageFile(file, maxW, quality, cb) {
+  if (!file || !/^image\//.test(file.type)) { cb(null); return; }
+  const rd = new FileReader();
+  rd.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxW / img.width);
+      const w = Math.max(1, Math.round(img.width * scale));
+      const h = Math.max(1, Math.round(img.height * scale));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      try { cb(c.toDataURL('image/jpeg', quality)); } catch { cb(null); }
+    };
+    img.onerror = () => cb(null);
+    img.src = rd.result;
+  };
+  rd.onerror = () => cb(null);
+  rd.readAsDataURL(file);
+}

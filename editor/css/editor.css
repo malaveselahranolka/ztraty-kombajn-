@@ -110,6 +110,8 @@ button { font-family: inherit; cursor: pointer; }
 .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--red); }
 .hint { font-size: 11px; color: var(--steel); margin-top: 5px; }
 .hint code { background: #23262E; padding: 1px 5px; border-radius: 4px; color: #E1E3DC; }
+.img-prev { width: 100%; aspect-ratio: 1080 / 1350; border-radius: 8px; border: 1px solid var(--line);
+  background: #000 center/cover no-repeat; margin-bottom: 8px; }
 
 .rows-editor { border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: #101318; }
 .row-card { border: 1px solid var(--line); border-radius: 8px; padding: 9px; margin-bottom: 9px; background: var(--panel-2); }

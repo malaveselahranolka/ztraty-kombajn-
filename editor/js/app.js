@@ -2,7 +2,7 @@ import { TYPES, makeSlide } from './templates.js';
 import { renderSlideElement } from './render.js';
 import { DEFAULT_PROJECT } from './default-project.js';
 import { exportSlide, exportAll, exportJSON, importJSON } from './export.js';
-import { $, el, toast, pad2 } from './util.js';
+import { $, el, toast, pad2, readImageFile } from './util.js';
 
 const LS = 'chalkiron:project';
 let project = load();
@@ -15,7 +15,13 @@ function load() {
   return structuredClone(DEFAULT_PROJECT);
 }
 let saveT;
-function save() { clearTimeout(saveT); saveT = setTimeout(() => localStorage.setItem(LS, JSON.stringify(project)), 250); }
+function save() {
+  clearTimeout(saveT);
+  saveT = setTimeout(() => {
+    try { localStorage.setItem(LS, JSON.stringify(project)); }
+    catch { toast('Úložiště je plné — fotky se neuloží mezi sezeními. Exportuj projekt do .json.'); }
+  }, 250);
+}
 
 /* ---------------- scaled mount ---------------- */
 function mount(container, node, targetW, targetH = 1350) {
@@ -114,6 +120,7 @@ function renderForm() {
   (def.fields || []).forEach(fl => {
     const wrap = el('div', { class: 'field' });
     wrap.append(el('label', {}, fl.l));
+    if (fl.t === 'image') { wrap.append(imageField(s, fl)); f.append(wrap); return; }
     const inp = fl.t === 'area' ? el('textarea') : el('input', { type: 'text' });
     inp.value = s[fl.k] ?? '';
     inp.addEventListener('input', () => { s[fl.k] = inp.value; softAll(); });
@@ -128,6 +135,35 @@ function renderForm() {
     [document.createTextNode('Tip: '), codeSpan('**text**'), document.createTextNode(' = tučně / zvýrazněno.')]));
 }
 function codeSpan(t) { const c = el('code'); c.textContent = t; return c; }
+
+function imageField(s, fl) {
+  const box = el('div');
+  const has = !!s[fl.k];
+  if (has) {
+    const prev = el('div', { class: 'img-prev' });
+    prev.style.backgroundImage = `url("${s[fl.k]}")`;
+    box.append(prev);
+  }
+  const pick = el('label', { class: 'btn btn-sm', style: 'cursor:pointer;margin-right:8px' });
+  pick.textContent = has ? 'Změnit foto' : '⬆ Nahrát foto';
+  const inp = el('input', { type: 'file', accept: 'image/*', style: 'display:none' });
+  inp.addEventListener('change', e => {
+    const file = e.target.files[0]; if (!file) return;
+    pick.textContent = 'Načítám…';
+    readImageFile(file, 1280, 0.82, url => {
+      if (url) { s[fl.k] = url; renderForm(); softAll(); }
+      else { toast('Nešlo načíst obrázek'); pick.textContent = has ? 'Změnit foto' : '⬆ Nahrát foto'; }
+    });
+    e.target.value = '';
+  });
+  pick.append(inp); box.append(pick);
+  if (has) {
+    const rm = el('button', { class: 'btn btn-sm ghost', onclick: () => { delete s[fl.k]; renderForm(); softAll(); } });
+    rm.textContent = 'Odebrat';
+    box.append(rm);
+  }
+  return box;
+}
 
 function rowsEditor(s, spec) {
   const wrap = el('div', { class: 'field' });

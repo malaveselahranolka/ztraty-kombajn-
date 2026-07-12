@@ -14,9 +14,10 @@ const knurl   = () => `<div class="knurl"><div class="knurl-fill"></div></div>`;
 export const TYPES = {
   cover: {
     label: 'Úvod / Cover', themed: false,
-    make: () => ({ eyebrow: 'Slovník · Základy', title: 'Slovník', titleEm: 'síly',
+    make: () => ({ bg: '', eyebrow: 'Slovník · Základy', title: 'Slovník', titleEm: 'síly',
       sub: 'Zkratky a pojmy, co potkáš v každém plánu — vysvětlené česky. Ulož si a měj po ruce.', swipe: 'Swipe' }),
     fields: [
+      { k: 'bg',      l: 'Pozadí (foto)', t: 'image' },
       { k: 'eyebrow', l: 'Štítek (eyebrow)', t: 'text' },
       { k: 'title',   l: 'Titulek (bílá část)', t: 'text' },
       { k: 'titleEm', l: 'Titulek (červená část)', t: 'text' },
@@ -24,7 +25,7 @@ export const TYPES = {
       { k: 'swipe',   l: 'Swipe text', t: 'text' },
     ],
     render: (s, ctx) => ({ cls: 's-cover', html: `
-      <div class="bg"></div><div class="shade"></div>
+      ${s.bg ? `<div class="photo"><img src="${s.bg}" alt="" /></div><div class="tint"></div>` : `<div class="bg"></div>`}<div class="shade"></div>
       <div class="cover-inner">
         <div class="cover-top">${brand(ctx)}${cTop(ctx)}</div>
         <div class="cover-body">
@@ -32,6 +33,29 @@ export const TYPES = {
           <h2 class="cover-title">${esc(s.title)}<em>${esc(s.titleEm)}</em></h2>
           <p class="cover-sub">${esc(s.sub)}</p>
           <div class="cover-foot"><span class="swipe">${esc(s.swipe)} ${ICON.swipe}</span></div>
+        </div>
+      </div>` }),
+  },
+
+  photo: {
+    label: 'Foto (na pozadí)', themed: false,
+    make: () => ({ bg: '', eyebrow: 'Technika · Dřep', title: 'Co hlídat', titleEm: 've dřepu',
+      sub: 'Popisek přes fotku — drž ho krátký, ať je čitelný.' }),
+    fields: [
+      { k: 'bg',      l: 'Foto na pozadí', t: 'image' },
+      { k: 'eyebrow', l: 'Štítek (eyebrow)', t: 'text' },
+      { k: 'title',   l: 'Nadpis (bílá část)', t: 'text' },
+      { k: 'titleEm', l: 'Nadpis (červená část)', t: 'text' },
+      { k: 'sub',     l: 'Podtitulek', t: 'area' },
+    ],
+    render: (s, ctx) => ({ cls: 's-cover', html: `
+      ${s.bg ? `<div class="photo"><img src="${s.bg}" alt="" /></div><div class="tint"></div>` : `<div class="bg"></div>`}<div class="shade"></div>
+      <div class="cover-inner">
+        <div class="cover-top">${brand(ctx)}${cTop(ctx)}</div>
+        <div class="cover-body">
+          <div class="eyebrow" style="color:#fff">${esc(s.eyebrow)}</div>
+          <h2 class="cover-title" style="font-size:92px">${esc(s.title)}<em>${esc(s.titleEm)}</em></h2>
+          ${s.sub ? `<p class="cover-sub">${esc(s.sub)}</p>` : ''}
         </div>
       </div>` }),
   },

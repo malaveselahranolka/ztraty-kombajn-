@@ -63,11 +63,12 @@
 
 /* brand lockup → čisté FA logo */
 .brand { display: flex; align-items: center; gap: 16px; }
-.brand-mark { font-family: "Archivo", sans-serif; font-weight: 900; font-size: 46px;
-  line-height: 0.9; letter-spacing: -0.05em; text-transform: uppercase; flex: none;
-  display: inline-block; position: relative; padding-bottom: 13px; }
-.brand-mark i { font-style: normal; color: var(--red); }
-.brand-mark::after { content: ""; position: absolute; left: 0; bottom: 0; height: 6px; width: 100%;
+.brand-mark { display: inline-flex; align-items: center; gap: 13px; flex: none; }
+.brain-ico { width: 46px; height: 37px; color: var(--red); flex: none; }
+.brand-mark .fa { font-family: "Archivo", sans-serif; font-weight: 900; font-size: 44px;
+  line-height: 0.9; letter-spacing: -0.05em; text-transform: uppercase; position: relative; padding-bottom: 12px; }
+.brand-mark .fa i { font-style: normal; color: var(--red); }
+.brand-mark .fa::after { content: ""; position: absolute; left: 0; bottom: 0; height: 6px; width: 100%;
   background: var(--red); border-radius: 2px; }
 
 /* counter */

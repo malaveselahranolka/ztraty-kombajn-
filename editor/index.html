@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0C0D10" />
+  <meta name="description" content="Editor powerliftingových Instagram carouselů – CHALK & IRON design systém. Živý náhled 1080×1350, export do PNG a ZIP." />
+  <title>CHALK & IRON — editor carouselů</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/slides.css" />
+  <link rel="stylesheet" href="css/editor.css" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="brand-lockup">
+      <span class="mk">FA</span>
+      <span class="tt">Chalk &amp; Iron<small>editor carouselů</small></span>
+    </div>
+
+    <div class="field" style="margin:0">
+      <input id="projTitle" type="text" placeholder="Název projektu" />
+    </div>
+    <label class="btn ghost" title="Text loga vlevo dole" style="gap:8px">
+      Logo
+      <input id="projLogo" type="text" value="FA" maxlength="4"
+             style="width:52px;background:#1A1D24;border:1px solid #23262E;color:#ECEDE8;border-radius:6px;padding:5px 7px;font-size:13px;text-align:center" />
+    </label>
+
+    <div id="addWrap" style="position:relative">
+      <button id="btnAdd" class="btn">+ Slajd</button>
+      <div id="addMenu" hidden
+           style="position:absolute;top:110%;left:0;z-index:30;background:#14161B;border:1px solid #23262E;border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px;min-width:190px;box-shadow:0 20px 50px -20px rgba(0,0,0,.8)"></div>
+    </div>
+
+    <div class="grow"></div>
+
+    <div class="seg" id="scaleSeg" title="Kvalita exportu (násobek 1080×1350)">
+      <button data-s="1">1×</button>
+      <button data-s="2" class="on">2×</button>
+      <button data-s="3">3×</button>
+    </div>
+    <button id="btnPng" class="btn">⬇ PNG</button>
+    <button id="btnZip" class="btn btn-red">⬇ Vše (ZIP)</button>
+    <button id="btnSaveJson" class="btn ghost btn-sm">Uložit .json</button>
+    <label class="btn ghost btn-sm" style="cursor:pointer">Načíst .json
+      <input id="fileJson" type="file" accept="application/json,.json" hidden />
+    </label>
+    <button id="btnReset" class="btn ghost btn-sm">Výchozí</button>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="workspace">
+    <aside class="rail-left">
+      <div class="rail-title">Slajdy</div>
+      <div id="slideList"></div>
+    </aside>
+
+    <main class="stage" id="stage">
+      <div class="preview-wrap" id="preview"></div>
+    </main>
+
+    <aside class="rail-right">
+      <div id="form"></div>
+    </aside>
+  </div>
+
+  <!-- offscreen render target pro export -->
+  <div id="exportStage"></div>
+
+  <!-- knihovny -->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

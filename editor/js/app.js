@@ -185,7 +185,7 @@ function removeSlide(i) {
 function addSlide(type) {
   project.slides.splice(sel + 1, 0, makeSlide(type)); sel += 1;
   renderList(); renderPreview(); renderForm(); save();
-  document.getElementById('addMenu').hidden = true;
+  const m = document.getElementById('addMenu'); if (m) m.style.display = 'none';
 }
 
 /* ---------------- topbar wiring ---------------- */
@@ -195,14 +195,18 @@ function initTopbar() {
   const lg = $('#projLogo'); lg.value = project.logo || 'FA';
   lg.addEventListener('input', () => { project.logo = lg.value || 'FA'; renderList(); renderPreview(); save(); });
 
-  // add menu
+  // add menu (přes style.display — inline display:flex by přebilo [hidden])
   const menu = $('#addMenu');
+  menu.style.display = 'none';
   Object.entries(TYPES).forEach(([k, v]) => {
     const b = el('button', { class: 'btn btn-sm', onclick: () => addSlide(k) }); b.textContent = v.label;
     menu.append(b);
   });
-  $('#btnAdd').addEventListener('click', () => { menu.hidden = !menu.hidden; });
-  document.addEventListener('click', e => { if (!e.target.closest('#addWrap')) menu.hidden = true; });
+  $('#btnAdd').addEventListener('click', e => {
+    e.stopPropagation();
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('#addWrap')) menu.style.display = 'none'; });
 
   $('#btnPng').addEventListener('click', () => exportSlide(project, sel, scale));
   $('#btnZip').addEventListener('click', async () => {

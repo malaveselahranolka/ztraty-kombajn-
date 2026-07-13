@@ -172,6 +172,123 @@ export const TYPES = {
       <div class="foot-row">${brand(ctx)}<span class="counter" style="color:${footClr(ctx)}">${esc(s.footNote)}</span></div>` }),
   },
 
+  chart: {
+    label: 'Graf (sloupce)', themed: true,
+    make: () => ({ eyebrow: 'Data · Objem', title: 'Objem: hlavní vs. accessory',
+      note: '// týdenní počet sérií na partii', footNote: 'série / týden', rows: [
+        { label: 'Hlavní', value: '14', color: 'red' },
+        { label: 'Accessory', value: '4', color: 'steel' },
+        { label: '„Ideál"', value: '9', color: 'teal' },
+      ] }),
+    rows: { key: 'rows', cols: [
+      { k: 'label', l: 'Popisek (pod sloupcem)' },
+      { k: 'value', l: 'Hodnota (číslo)' },
+      { k: 'color', l: 'Barva', type: 'select', options: [['red', 'červená'], ['steel', 'šedá'], ['teal', 'tyrkys'], ['sand', 'písková']] },
+    ] },
+    fields: [
+      { k: 'eyebrow', l: 'Štítek', t: 'text' },
+      { k: 'title',   l: 'Nadpis grafu', t: 'text' },
+      { k: 'note',    l: 'Popisek (mono, // …)', t: 'text' },
+      { k: 'footNote',l: 'Patička', t: 'text' },
+    ],
+    render: (s, ctx) => {
+      const rows = (s.rows || []).slice(0, 7);
+      const vals = rows.map(r => Math.max(0, parseFloat(String(r.value).replace(',', '.')) || 0));
+      const maxV = Math.max(1, ...vals);
+      const n = Math.max(1, rows.length);
+      const x0 = 96, x1 = 900, baseY = 468, topY = 70;
+      const step = (x1 - x0) / n, bw = Math.min(128, step * 0.62);
+      const cmap = { red: '#D93A21', steel: '#6B7686', teal: '#3E8E9A', sand: '#C7A24B' };
+      const xc = ctx.theme === 'dark' ? '#9AA3AE' : '#4A4F59';
+      let bars = '', vlab = '', xlab = '';
+      rows.forEach((r, i) => {
+        const v = vals[i], h = (v / maxV) * (baseY - topY);
+        const bx = x0 + i * step + (step - bw) / 2, col = cmap[r.color] || '#D93A21';
+        bars += `<rect x="${bx.toFixed(0)}" y="${(baseY - h).toFixed(0)}" width="${bw.toFixed(0)}" height="${h.toFixed(0)}" rx="3" fill="${col}"/>`;
+        vlab += `<text x="${(bx + bw / 2).toFixed(0)}" y="${(baseY - h - 16).toFixed(0)}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="27" font-weight="600" fill="${col}">${esc(r.value)}</text>`;
+        xlab += `<text x="${(bx + bw / 2).toFixed(0)}" y="${(baseY + 36).toFixed(0)}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="22" fill="${xc}">${esc(r.label)}</text>`;
+      });
+      const grid = ctx.theme === 'dark' ? '#2C313B' : '#CFD2C9';
+      const axis = ctx.theme === 'dark' ? '#ECEDE8' : '#14161B';
+      return { cls: 's-' + ctx.theme, html: `
+      ${knurl()}
+      <div class="head-row"><div class="eyebrow">${esc(s.eyebrow)}</div>${cTop(ctx)}</div>
+      <div class="chart-wrap">
+        <h3 class="chart-title">${esc(s.title)}</h3>
+        <p class="chart-note">${esc(s.note)}</p>
+        <svg class="chart" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet">
+          <g stroke="${grid}" stroke-width="1"><line x1="96" y1="170" x2="900" y2="170"/><line x1="96" y1="270" x2="900" y2="270"/><line x1="96" y1="370" x2="900" y2="370"/></g>
+          <line x1="96" y1="468" x2="900" y2="468" stroke="${axis}" stroke-width="2"/>
+          <g>${bars}</g><g>${vlab}</g><g>${xlab}</g>
+        </svg>
+      </div>
+      <div class="foot-row">${brand(ctx)}<span class="counter" style="color:${footClr(ctx)}">${esc(s.footNote)}</span></div>` };
+    },
+  },
+
+  table: {
+    label: 'Porovnání (A vs B)', themed: true,
+    make: () => ({ eyebrow: 'Srovnání', title: 'Účelové **vs.** náhodné', crit: 'Kritérium',
+      col1: 'Účelové', col2: 'Náhodné', footNote: '', rows: [
+        { k: 'Výběr cviku', a: 'dle slabiny', b: 'dle nálady' },
+        { k: 'Progrese', a: 'zapsaná', b: 'žádná' },
+        { k: 'Objem', a: 'řízený', b: 'náhodný' },
+        { k: 'Přenos na SBD', a: 'vysoký', b: 'nejistý' },
+      ] }),
+    rows: { key: 'rows', cols: [
+      { k: 'k', l: 'Kritérium' },
+      { k: 'a', l: 'Sloupec A' },
+      { k: 'b', l: 'Sloupec B' },
+    ] },
+    fields: [
+      { k: 'eyebrow', l: 'Štítek', t: 'text' },
+      { k: 'title',   l: 'Nadpis (**červené**)', t: 'text' },
+      { k: 'crit',    l: 'Záhlaví 1. sloupce', t: 'text' },
+      { k: 'col1',    l: 'Záhlaví A (červené)', t: 'text' },
+      { k: 'col2',    l: 'Záhlaví B', t: 'text' },
+      { k: 'footNote',l: 'Patička', t: 'text' },
+    ],
+    render: (s, ctx) => {
+      const body = (s.rows || []).map(r =>
+        `<div class="crow"><span class="ck">${esc(r.k)}</span><span class="cv cv1">${esc(r.a)}</span><span class="cv cv2">${esc(r.b)}</span></div>`).join('');
+      return { cls: 's-' + ctx.theme, html: `
+      ${knurl()}
+      <div class="head-row"><div class="eyebrow">${esc(s.eyebrow)}</div>${cTop(ctx)}</div>
+      <h2 class="slide-h" style="font-size:70px; margin-top:34px">${hl(s.title)}</h2>
+      <div class="ctable">
+        <div class="crow chead"><span>${esc(s.crit)}</span><span class="c1">${esc(s.col1)}</span><span class="c2">${esc(s.col2)}</span></div>
+        ${body}
+      </div>
+      <div class="foot-row">${brand(ctx)}<span class="counter" style="color:${footClr(ctx)}">${esc(s.footNote)}</span></div>` };
+    },
+  },
+
+  steps: {
+    label: 'Kroky / Důvody', themed: true,
+    make: () => ({ eyebrow: '3 důvody', footNote: '', rows: [
+      { h: 'Chybí cíl', b: 'Accessory se dělá „na pocit", ne proti konkrétní slabině.', m: 'cvik **bez důvodu** = ztracený objem' },
+      { h: 'Neměří se', b: 'Žádná progrese ani zápis → nevíš, jestli to vůbec funguje.', m: 'bez **progrese** není adaptace' },
+      { h: 'Krade regeneraci', b: 'Objem navíc bez plánu ubírá zdroje hlavním cvikům.', m: 'únava **předběhne** zisk' },
+    ] }),
+    rows: { key: 'rows', cols: [
+      { k: 'h', l: 'Nadpis kroku' },
+      { k: 'b', l: 'Text', area: true },
+      { k: 'm', l: 'Detail (mono, **tučné**)' },
+    ] },
+    fields: [
+      { k: 'eyebrow', l: 'Štítek', t: 'text' },
+      { k: 'footNote',l: 'Patička', t: 'text' },
+    ],
+    render: (s, ctx) => {
+      const items = (s.rows || []).map((r, i) =>
+        `<div class="step"><div class="num">${i + 1}</div><div><h4 class="st-h">${esc(r.h)}</h4><p class="st-b">${esc(r.b)}</p>${r.m ? `<div class="st-m">${md(r.m)}</div>` : ''}</div></div>`).join('');
+      return { cls: 's-' + ctx.theme, html: `
+      <div class="head-row"><div class="eyebrow">${esc(s.eyebrow)}</div>${cTop(ctx)}</div>
+      <div class="steps">${items}</div>
+      <div class="foot-row">${brand(ctx)}<span class="counter" style="color:${footClr(ctx)}">${esc(s.footNote)}</span></div>` };
+    },
+  },
+
   cta: {
     label: 'Závěr / CTA', themed: false,
     make: () => ({ eyebrow: 'Ulož si slovník', title: 'Žádná zkratka', titleEm: 'tě nepřekvapí.',

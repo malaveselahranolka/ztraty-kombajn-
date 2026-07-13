@@ -181,6 +181,17 @@ function rowsEditor(s, spec) {
     top.append(del);
     card.append(top);
     spec.cols.slice(1).forEach(col => {
+      if (col.type === 'select') {
+        const sel = el('select');
+        (col.options || []).forEach(([val, lab]) => {
+          const o = el('option', { value: val }); o.textContent = lab;
+          if ((r[col.k] ?? (col.options[0] || [])[0]) === val) o.selected = true;
+          sel.append(o);
+        });
+        sel.addEventListener('change', () => { r[col.k] = sel.value; softAll(); });
+        card.append(sel);
+        return;
+      }
       const c = col.area ? el('textarea', { placeholder: col.l }) : el('input', { type: 'text', placeholder: col.l });
       c.value = r[col.k] ?? ''; c.addEventListener('input', () => { r[col.k] = c.value; softAll(); });
       card.append(c);

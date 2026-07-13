@@ -289,6 +289,30 @@ export const TYPES = {
     },
   },
 
+  point: {
+    label: 'Bod (číslo + text)', themed: true,
+    make: () => ({ eyebrow: 'Adaptácia', num: '01', title: 'Nadpis bodu',
+      body: 'Vysvetlenie s **červeným zvýraznením** kľúčových slov.', note: 'krátky **takeaway**', footNote: '' }),
+    fields: [
+      { k: 'eyebrow',  l: 'Štítek', t: 'text' },
+      { k: 'num',      l: 'Číslo (napr. 01)', t: 'text' },
+      { k: 'title',    l: 'Nadpis', t: 'text' },
+      { k: 'body',     l: 'Text (**červené** zvýraznenie)', t: 'area' },
+      { k: 'note',     l: 'Mono takeaway (**tučné**)', t: 'text' },
+      { k: 'footNote', l: 'Patička', t: 'text' },
+    ],
+    render: (s, ctx) => ({ cls: 's-' + ctx.theme, html: `
+      ${knurl()}
+      <div class="head-row"><div class="eyebrow">${esc(s.eyebrow)}</div>${cTop(ctx)}</div>
+      <div class="point-body">
+        <div class="point-num">${esc(s.num)}</div>
+        <h2 class="point-title">${hl(s.title)}</h2>
+        <p class="point-text">${hl(s.body)}</p>
+        ${s.note ? `<div class="point-note">${md(s.note)}</div>` : ''}
+      </div>
+      <div class="foot-row">${brand(ctx)}<span class="counter" style="color:${footClr(ctx)}">${esc(s.footNote)}</span></div>` }),
+  },
+
   cta: {
     label: 'Závěr / CTA', themed: false,
     make: () => ({ eyebrow: 'Ulož si slovník', title: 'Žádná zkratka', titleEm: 'tě nepřekvapí.',

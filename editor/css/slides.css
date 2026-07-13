@@ -193,6 +193,23 @@
 .s-dark .gloss-def { color: var(--steel-lt); }
 .s-dark .gloss-def b { color: #fff; }
 
+/* ---------- POINT (číslovaný bod) ---------- */
+.point-body { margin-top: 30px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.point-num { font-family: "Archivo"; font-weight: 900; font-size: 92px; line-height: 0.8;
+  color: var(--red); letter-spacing: -0.04em; margin-bottom: 10px; }
+.point-title { font-family: "Archivo"; font-weight: 800; font-size: 60px; line-height: 1.0;
+  letter-spacing: -0.025em; margin: 0 0 26px; }
+.s-chalk .point-title { color: var(--ink); }
+.s-dark  .point-title { color: #fff; }
+.point-text { font-size: 30px; line-height: 1.5; margin: 0; max-width: 40ch; }
+.s-chalk .point-text { color: var(--ink-soft); }
+.s-dark  .point-text { color: var(--steel-lt); }
+.point-text .hl { color: var(--red); font-weight: 600; }
+.point-note { font-family: "IBM Plex Mono", monospace; font-size: 22px; color: var(--steel);
+  margin-top: 26px; letter-spacing: 0.06em; }
+.point-note b { color: var(--red-deep); font-weight: 600; }
+.s-dark .point-note b { color: var(--red); }
+
 /* ---------- CHART (sloupce) ---------- */
 .chart-wrap { margin-top: 44px; flex: 1; display: flex; flex-direction: column; }
 .chart-title { font-family: "Archivo"; font-weight: 800; font-size: 66px; letter-spacing: -0.025em; line-height: 1.0; margin: 0; }

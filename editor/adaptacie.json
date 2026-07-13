@@ -1,65 +1,65 @@
 {
-  "title": "Adaptácie sily",
+  "title": "Adaptace síly",
   "logo": "FA",
   "slides": [
     {
       "id": "ad_cover", "type": "cover", "theme": "cover", "bg": "",
-      "eyebrow": "Sila · Teória",
-      "title": "Všetky adaptácie,",
-      "titleEm": "vďaka ktorým si silnejší",
-      "sub": "7 mechanizmov, ktoré ťa robia silnejším — a ako na ne trénovať.",
+      "eyebrow": "Síla · Teorie",
+      "title": "7 adaptací,",
+      "titleEm": "díky kterým jsi silnější",
+      "sub": "Síla není jen o velikosti svalu. Tohle je 7 věcí, které se v tobě mění — a jak je natrénovat.",
       "swipe": "Swipe"
     },
     {
       "id": "ad_1", "type": "point", "theme": "dark",
-      "eyebrow": "Adaptácia", "num": "01", "title": "Myofibrilárna hypertrofia",
-      "body": "Keď sa povie „rast sily\", najlogickejšia adaptácia je **myofibrilárna hypertrofia — rast kontraktilného tkaniva**. Je to pridávanie sarkomér (základných funkčných jednotiek svalu s aktínom a myozínom) paralelne alebo do série. **Čím viac sarkomér vo svale, tým je silnejší.**",
-      "note": "viac sarkomér = **viac sily**", "footNote": ""
+      "eyebrow": "Adaptace", "num": "01", "title": "Myofibrilární hypertrofie",
+      "body": "Když se řekne „růst síly\", většina si představí větší svaly. Jádro je **myofibrilární hypertrofie** — přibývání sarkomer, stavebních jednotek svalu s aktinem a myozinem. Čím víc jich máš zapojených vedle sebe i za sebou, **tím větší sílu sval vyprodukuje.**",
+      "note": "víc sarkomer = **víc síly**", "footNote": ""
     },
     {
       "id": "ad_2", "type": "point", "theme": "chalk",
-      "eyebrow": "Adaptácia", "num": "02", "title": "Predĺženie interného ramena sily",
-      "body": "Čím väčší je sval **(nielen myofibrilárnou, ale aj sarkoplazmatickou hypertrofiou)**, tým dlhšie interné rameno sily má na danom kĺbe — a tým väčší **krútiaci moment** dokáže vyprodukovať.",
-      "note": "väčší sval = **väčšia páka**", "footNote": ""
+      "eyebrow": "Adaptace", "num": "02", "title": "Delší vnitřní rameno síly",
+      "body": "Větší sval (ať už z myofibrilární, nebo sarkoplazmatické hypertrofie) odtlačuje šlachu dál od kloubu. **Delší páka = větší krouticí moment** při stejné síle svalu. Objem tu nepracuje jen esteticky — mění ti mechaniku.",
+      "note": "větší sval = **lepší páka**", "footNote": ""
     },
     {
       "id": "ad_3", "type": "point", "theme": "dark",
-      "eyebrow": "Adaptácia", "num": "03", "title": "Zlepšenie v koordinácii",
-      "body": "Telo sa učí vykonávať pohyb efektívnejšie — táto adaptácia je veľmi špecifická pre konkrétny cvik. **Čím je cvik komplexnejší, tým viac závisí silové zlepšenie od koordinácie.** Najdôležitejšia adaptácia u silových športovcov.",
-      "note": "špecifické **pre daný cvik**", "footNote": ""
+      "eyebrow": "Adaptace", "num": "03", "title": "Lepší koordinace",
+      "body": "Tělo se učí provést pohyb úsporněji — a je to hodně specifické pro konkrétní cvik. **Čím složitější cvik, tím víc síla stojí na technice, ne na svalu.** Proto u silových sportovců často rozhoduje nacvičenost pohybu víc než velikost.",
+      "note": "u komplexních cviků **technika > objem**", "footNote": ""
     },
     {
       "id": "ad_4", "type": "point", "theme": "chalk",
-      "eyebrow": "Adaptácia", "num": "04", "title": "Nižšia aktivácia antagonistu",
-      "body": "Pri každom cviku (hlavne komplexnom) zapájaš okrem agonistu aj antagonistu. **Napríklad pri drepe okrem kvadricepsov aj hamstringy.** Čím väčšia je aktivácia antagonistu, tým viac brzdí pohyb — a tým menšiu silu máš. Znižovanie je špecifické pre daný cvik.",
-      "note": "menej brzdenia = **viac sily**", "footNote": ""
+      "eyebrow": "Adaptace", "num": "04", "title": "Nižší aktivace antagonisty",
+      "body": "U každého pohybu (hlavně složeného) brzdí sval na druhé straně kloubu. **Ve dřepu proti kvadricepsům pracují hamstringy.** Čím míň tě antagonista brzdí, tím víc síly „projde ven\". Tělo se tuhle brzdu učí pouštět — zase specificky pro daný cvik.",
+      "note": "míň brzdy = **víc výkonu**", "footNote": ""
     },
     {
       "id": "ad_5", "type": "point", "theme": "dark",
-      "eyebrow": "Adaptácia", "num": "05", "title": "Vyšší nábor motorických jednotiek",
-      "body": "Povolať všetky motorické jednotky je takmer nemožné (v malých svaloch áno, vo väčších nie), hlavne u začiatočníkov. **Postupom času sa učíš cvičiť ťažšie a s väčším nasadením**, čo vedie k **väčšiemu náboru** (nikdy nie k 100 %). Objektívnejšia adaptácia, platí naprieč cvikmi.",
-      "note": "viac **zapojených vlákien**", "footNote": ""
+      "eyebrow": "Adaptace", "num": "05", "title": "Vyšší nábor motorických jednotek",
+      "body": "Zapojit úplně všechna vlákna je skoro nemožné, hlavně u začátečníků. **Jak se učíš tlačit doopravdy naplno, nabíráš víc motorických jednotek** (nikdy ne 100 %). Platí napříč cviky a je to jeden z hlavních důvodů, proč zesílíš rychle i bez velkého růstu svalu.",
+      "note": "naplno = **víc zapojených vláken**", "footNote": ""
     },
     {
       "id": "ad_6", "type": "point", "theme": "chalk",
-      "eyebrow": "Adaptácia", "num": "06", "title": "Vyššia tuhosť šliach",
-      "body": "Šľacha sa dokáže natiahnuť o 4–10 % podľa svojej tuhosti. **Čím je tuhšia, tým menej energie sval stráca pri kontrakcii — a tým si silnejší.** Najlepšie na to fungujú ťažké váhy (**80 % 1RM a viac**) a intenzívne izometrické kontrakcie.",
-      "note": "tuhšia šľacha = **menej strát**", "footNote": ""
+      "eyebrow": "Adaptace", "num": "06", "title": "Tužší šlachy",
+      "body": "Šlacha se umí protáhnout o 4–10 % podle své tuhosti. **Tužší šlacha ztrácí míň energie při přenosu na kost — a ty jsi silnější.** Nejlíp na to zabírají těžké váhy (**80 % 1RM a víc**) a tvrdé izometrie.",
+      "note": "tužší šlacha = **míň ztrát**", "footNote": ""
     },
     {
       "id": "ad_7", "type": "point", "theme": "dark",
-      "eyebrow": "Adaptácia", "num": "07", "title": "Vyšší bočný prenos sily",
-      "body": "Sila sa neprenáša len pozdĺž vlákien na šľachu, ale aj bočne — cez tzv. kostaméry na extracelulárny matrix. **Silový tréning pravdepodobne zvyšuje počet kostamér, čím rastie bočný prenos sily.** Sval je silnejší, no spomaľuje sa rýchlosť kontrakcie.",
-      "note": "viac kostamér = **viac prenosu**", "footNote": ""
+      "eyebrow": "Adaptace", "num": "07", "title": "Vyšší boční přenos síly",
+      "body": "Síla neteče jen podél vlákna na šlachu — část jde **bočně přes kostaméry** do okolní tkáně. Silový trénink nejspíš zvyšuje jejich počet, takže se přenese víc síly. Výsledek: silnější sval, ale o kus pomalejší kontrakce.",
+      "note": "víc kostamer = **víc přenesené síly**", "footNote": ""
     },
     {
       "id": "ad_cta", "type": "cta", "theme": "dark",
       "eyebrow": "Ulož si to",
-      "title": "7 ciest,",
-      "titleEm": "ako byť silnejší.",
-      "primary": "Ulož príspevok",
+      "title": "7 způsobů,",
+      "titleEm": "jak zesílit.",
+      "primary": "Ulož příspěvek",
       "secondary": "Sleduj profil",
-      "next": "Ktorá ťa prekvapila? **Napíš do komentárov →**"
+      "next": "Která tě překvapila? **Napiš do komentářů →**"
     }
   ]
 }

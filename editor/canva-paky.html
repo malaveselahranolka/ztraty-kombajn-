@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="cs"><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>*{box-sizing:border-box}html,body{margin:0;padding:0}body{background:#0C0D10}
+.slide{margin:0 auto;display:flex}
+.grain::after{content:none!important;display:none!important;background:none!important}
+/* =====================================================================
+   CHALK & IRON — styly slajdů (1080×1350 / 1080×1080)
+   Použité pro živý náhled i pro export do PNG.
+   ===================================================================== */
+
+:root {
+  --iron:      #17191E;
+  --iron-2:    #1F232B;
+  --iron-line: #2C313B;
+  --chalk:     #ECEDE8;
+  --chalk-2:   #E1E3DC;
+  --chalk-line:#CFD2C9;
+  --ink:       #14161B;
+  --ink-soft:  #4A4F59;
+  --red:       #D93A21;
+  --red-deep:  #B22E19;
+  --steel:     #6B7686;
+  --steel-lt:  #9AA3AE;
+  --sand:      #C7A24B;
+  --teal:      #3E8E9A;
+  --pad: 92px;
+}
+
+/* ---------- SLIDE BASE (skutečných 1080×1350) ---------- */
+.slide {
+  width: 1080px; height: 1350px; position: relative; overflow: hidden;
+  padding: var(--pad); display: flex; flex-direction: column;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.slide.sq { width: 1080px; height: 1080px; }
+.s-chalk { background: var(--chalk); color: var(--ink); }
+.s-dark  { background: var(--iron);  color: var(--chalk); }
+
+/* grain overlay */
+.grain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.5; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* knurling edge motif */
+.knurl { position: absolute; top: 0; bottom: 0; width: 20px; right: 0; }
+.knurl-fill {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(to bottom, currentColor 0 2px, transparent 2px 14px);
+  opacity: 0.22;
+}
+.s-chalk .knurl { color: var(--chalk-line); }
+.s-dark  .knurl { color: var(--iron-line); }
+
+/* eyebrow */
+.eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 24px; font-weight: 500;
+  letter-spacing: 0.24em; text-transform: uppercase; display: flex; align-items: center; gap: 18px; }
+.eyebrow::before { content: ""; width: 46px; height: 3px; background: var(--red); flex: none; }
+.s-chalk .eyebrow { color: var(--ink); }
+.s-dark  .eyebrow { color: var(--chalk); }
+
+/* rail */
+.rail { font-family: "IBM Plex Mono", monospace; font-size: 22px; letter-spacing: 0.12em;
+  text-transform: uppercase; display: flex; align-items: center; }
+.s-chalk .rail { color: var(--steel); }
+.s-dark  .rail { color: var(--steel-lt); }
+
+/* brand lockup → čisté FA logo */
+.brand { display: flex; align-items: center; gap: 16px; }
+.brand-mark { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 6px; flex: none; }
+.brain-ico { width: 42px; height: auto; color: var(--red); flex: none; }
+.brand-mark .fa { font-family: "Archivo", sans-serif; font-weight: 900; font-size: 38px;
+  line-height: 0.9; letter-spacing: -0.05em; text-transform: uppercase; position: relative; padding-bottom: 10px; }
+.brand-mark .fa i { font-style: normal; color: var(--red); }
+.brand-mark .fa::after { content: ""; position: absolute; left: 0; bottom: 0; height: 5px; width: 100%;
+  background: var(--red); border-radius: 2px; }
+
+/* counter */
+.counter { font-family: "IBM Plex Mono", monospace; font-size: 22px; font-weight: 500; letter-spacing: 0.1em; }
+.counter b { color: var(--red); font-weight: 600; }
+
+.head-row { display: flex; align-items: center; justify-content: space-between; }
+.foot-row { display: flex; align-items: center; justify-content: space-between; margin-top: 44px; }
+.spacer { flex: 1; }
+
+/* ---------- COVER ---------- */
+.s-cover { background: var(--iron); color: var(--chalk); padding: 0; }
+.s-cover .bg { position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 22px),
+    radial-gradient(120% 100% at 30% 20%, #22252c 0%, #16181d 70%); }
+.s-cover .photo { position: absolute; inset: 0; }
+.s-cover .photo img { width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: grayscale(0.25) contrast(1.05); }
+.s-cover .tint { position: absolute; inset: 0; background: var(--red); mix-blend-mode: multiply; opacity: 0.14; }
+.s-cover .shade { position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(15,16,20,0.55) 0%, rgba(15,16,20,0.12) 34%, rgba(15,16,20,0.72) 78%, rgba(15,16,20,0.96) 100%),
+    radial-gradient(120% 80% at 15% 100%, rgba(217,58,33,0.28) 0%, transparent 55%); }
+.s-cover .cover-inner { position: absolute; inset: 0; padding: var(--pad); display: flex; flex-direction: column; }
+.cover-top { display: flex; align-items: center; justify-content: space-between; }
+.cover-body { margin-top: auto; }
+.cover-body .eyebrow { color: #fff; margin-bottom: 26px; }
+.cover-title { font-family: "Archivo"; font-weight: 900; font-size: 108px; line-height: 0.9;
+  letter-spacing: -0.035em; text-transform: uppercase; margin: 0; color: #fff; }
+.cover-title em { font-style: normal; color: var(--red); display: block; }
+.cover-sub { font-size: 33px; line-height: 1.42; color: #D6D8D3; max-width: 24ch; margin: 32px 0 0; font-weight: 300; }
+.cover-foot { margin-top: 54px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.16); }
+.swipe { display: inline-flex; align-items: center; gap: 12px; font-family: "IBM Plex Mono", monospace;
+  font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; }
+.swipe svg { width: 30px; height: 18px; }
+
+/* ---------- CONCEPT / TEXT ---------- */
+.slide-h { font-family: "Archivo"; font-weight: 800; font-size: 92px; line-height: 0.98;
+  letter-spacing: -0.03em; margin: 46px 0 0; }
+.slide-h .hl { color: var(--red); }
+.body-copy { font-size: 35px; line-height: 1.55; color: var(--ink-soft); max-width: 30ch; margin: 40px 0 0; }
+.s-dark .body-copy { color: var(--steel-lt); }
+.callout { margin-top: auto; border-left: 4px solid var(--red); padding: 8px 0 8px 32px;
+  background: linear-gradient(90deg, rgba(217,58,33,0.06), transparent); }
+.callout .k { font-family: "IBM Plex Mono", monospace; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--steel); }
+.callout .v { font-family: "Archivo"; font-weight: 700; font-size: 46px; line-height: 1.1; margin-top: 8px; letter-spacing: -0.02em; }
+.s-chalk .callout .v { color: var(--ink); }
+.s-dark  .callout .v { color: #fff; }
+
+/* ---------- BIG STAT ---------- */
+.s-stat { justify-content: center; }
+.stat-num { font-family: "Archivo"; font-weight: 900; font-size: 340px; line-height: 0.82;
+  letter-spacing: -0.05em; color: var(--red); margin: 24px 0; }
+.stat-num small { font-size: 120px; color: var(--chalk); -webkit-text-stroke: 2px var(--iron-line); }
+.stat-label { font-family: "Archivo"; font-weight: 700; font-size: 58px; line-height: 1.06; letter-spacing: -0.02em; max-width: 22ch; }
+.stat-sub { font-family: "IBM Plex Mono", monospace; font-size: 24px; line-height: 1.5; color: var(--steel-lt); margin-top: 28px; max-width: 40ch; letter-spacing: 0.04em; }
+
+/* ---------- CTA ---------- */
+.cta-body { margin-top: auto; }
+.cta-h { font-family: "Archivo"; font-weight: 900; font-size: 104px; line-height: 0.92; letter-spacing: -0.035em;
+  text-transform: uppercase; margin: 0; }
+.cta-h em { font-style: normal; color: var(--red); }
+.cta-actions { display: flex; gap: 20px; margin-top: 52px; flex-wrap: wrap; }
+.pill { display: inline-flex; align-items: center; gap: 14px; font-family: "IBM Plex Mono", monospace;
+  font-size: 24px; letter-spacing: 0.06em; padding: 22px 34px; border-radius: 999px; }
+.pill-solid { background: var(--red); color: #fff; }
+.pill-ghost { border: 1px solid rgba(255,255,255,0.24); color: var(--chalk); }
+.s-chalk .pill-ghost { border-color: var(--chalk-line); color: var(--ink); }
+.pill svg { width: 26px; height: 26px; }
+.cta-next { margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--iron-line);
+  font-family: "IBM Plex Mono", monospace; font-size: 22px; color: var(--steel-lt); letter-spacing: 0.06em; }
+.s-chalk .cta-next { border-color: var(--chalk-line); color: var(--steel); }
+.cta-next b { color: var(--chalk); font-weight: 500; }
+.s-chalk .cta-next b { color: var(--ink); }
+
+/* ---------- FACTS ---------- */
+.facts { margin-top: 44px; display: flex; flex-direction: column; flex: 1; justify-content: center; }
+.fact { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: center;
+  padding: 40px 0; border-top: 1px solid var(--chalk-line); }
+.fact:last-child { border-bottom: 1px solid var(--chalk-line); }
+.s-dark .fact { border-color: var(--iron-line); }
+.fact .fv { font-family: "Archivo"; font-weight: 900; font-size: 84px; line-height: 0.82;
+  letter-spacing: -0.04em; color: var(--red); }
+.fact .fv small { display: block; font-family: "IBM Plex Mono", monospace; font-weight: 500;
+  font-size: 22px; color: var(--steel); letter-spacing: 0.06em; margin-top: 14px; text-transform: uppercase; }
+.fact .ft { font-size: 33px; line-height: 1.4; }
+.s-chalk .fact .ft { color: var(--ink); }
+.s-dark  .fact .ft { color: #fff; }
+.fact .ft b { font-weight: 600; }
+
+/* ---------- TERM (jeden pojem) ---------- */
+.term { margin-top: auto; margin-bottom: auto; }
+.term-abbr { font-family: "Archivo"; font-weight: 900; font-size: 210px; line-height: 0.82;
+  letter-spacing: -0.045em; color: var(--red); margin: 0; }
+.term-full { font-family: "IBM Plex Mono", monospace; font-size: 32px; letter-spacing: 0.06em;
+  text-transform: uppercase; margin: 18px 0 0; }
+.s-chalk .term-full { color: var(--ink-soft); }
+.s-dark  .term-full { color: var(--steel-lt); }
+.term-def { font-size: 40px; line-height: 1.38; margin: 46px 0 0; max-width: 25ch; }
+.s-chalk .term-def { color: var(--ink); }
+.s-dark  .term-def { color: #fff; }
+.term-eg { margin-top: 38px; border-left: 4px solid var(--red); padding: 8px 0 8px 30px;
+  font-family: "IBM Plex Mono", monospace; font-size: 27px; line-height: 1.5; }
+.s-chalk .term-eg { color: var(--steel); }
+.s-dark  .term-eg { color: var(--steel-lt); }
+.term-eg b { color: var(--red-deep); font-weight: 600; }
+.s-dark .term-eg b { color: var(--red); }
+.term-eg .k { display: block; font-size: 20px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--steel); margin-bottom: 8px; }
+
+/* ---------- GLOSÁŘ (víc pojmů / slide) ---------- */
+.gloss { margin-top: 38px; display: flex; flex-direction: column; flex: 1; justify-content: center; }
+.gloss-row { display: grid; grid-template-columns: 288px 1fr; gap: 30px; align-items: center;
+  padding: 26px 0; border-top: 1px solid var(--chalk-line); }
+.gloss-row:last-child { border-bottom: 1px solid var(--chalk-line); }
+.gloss-abbr { font-family: "Archivo"; font-weight: 800; font-size: 42px; line-height: 1.0;
+  letter-spacing: -0.02em; color: var(--red); }
+.gloss-def { font-size: 29px; line-height: 1.34; color: var(--ink-soft); }
+.gloss-def b { color: var(--ink); font-weight: 600; }
+.s-dark .gloss-row { border-color: var(--iron-line); }
+.s-dark .gloss-def { color: var(--steel-lt); }
+.s-dark .gloss-def b { color: #fff; }
+
+/* ---------- POINT (číslovaný bod) ---------- */
+.point-body { margin-top: 30px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.point-num { font-family: "Archivo"; font-weight: 900; font-size: 92px; line-height: 0.8;
+  color: var(--red); letter-spacing: -0.04em; margin-bottom: 10px; }
+.point-title { font-family: "Archivo"; font-weight: 800; font-size: 60px; line-height: 1.0;
+  letter-spacing: -0.025em; margin: 0 0 26px; }
+.s-chalk .point-title { color: var(--ink); }
+.s-dark  .point-title { color: #fff; }
+.point-text { font-size: 30px; line-height: 1.5; margin: 0; max-width: 40ch; }
+.s-chalk .point-text { color: var(--ink-soft); }
+.s-dark  .point-text { color: var(--steel-lt); }
+.point-text .hl { color: var(--red); font-weight: 600; }
+.point-note { font-family: "IBM Plex Mono", monospace; font-size: 22px; color: var(--steel);
+  margin-top: 26px; letter-spacing: 0.06em; }
+.point-note b { color: var(--red-deep); font-weight: 600; }
+.s-dark .point-note b { color: var(--red); }
+
+/* ---------- CHART (sloupce) ---------- */
+.chart-wrap { margin-top: 44px; flex: 1; display: flex; flex-direction: column; }
+.chart-title { font-family: "Archivo"; font-weight: 800; font-size: 66px; letter-spacing: -0.025em; line-height: 1.0; margin: 0; }
+.s-chalk .chart-title { color: var(--ink); }
+.s-dark  .chart-title { color: #fff; }
+.chart-note { font-family: "IBM Plex Mono", monospace; font-size: 20px; color: var(--steel); margin: 16px 0 0; letter-spacing: 0.06em; }
+.chart { flex: 1; margin-top: 30px; min-height: 0; }
+
+/* ---------- STEPS / DŮVODY ---------- */
+.steps { margin-top: 40px; display: flex; flex-direction: column; flex: 1; justify-content: center; }
+.step { display: grid; grid-template-columns: 132px 1fr; gap: 28px; align-items: start;
+  padding: 30px 0; border-top: 1px solid var(--chalk-line); }
+.step:last-child { border-bottom: 1px solid var(--chalk-line); }
+.s-dark .step { border-color: var(--iron-line); }
+.step .num { font-family: "Archivo"; font-weight: 900; font-size: 96px; line-height: 0.8; color: var(--red); letter-spacing: -0.04em; }
+.step .st-h { font-family: "Archivo"; font-weight: 700; font-size: 48px; letter-spacing: -0.02em; margin: 0; }
+.s-chalk .step .st-h { color: var(--ink); }
+.s-dark  .step .st-h { color: #fff; }
+.step .st-b { font-size: 27px; line-height: 1.45; margin: 10px 0 0; max-width: 34ch; }
+.s-chalk .step .st-b { color: var(--ink-soft); }
+.s-dark  .step .st-b { color: var(--steel-lt); }
+.step .st-m { font-family: "IBM Plex Mono", monospace; font-size: 22px; color: var(--steel); margin-top: 12px; letter-spacing: 0.08em; }
+.step .st-m b { color: var(--red-deep); font-weight: 600; }
+.s-dark .step .st-m b { color: var(--red); }
+
+/* ---------- TABLE (A vs B) ---------- */
+.ctable { margin-top: 40px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.crow { display: grid; grid-template-columns: 1.25fr 1fr 1fr; align-items: center;
+  padding: 30px 0; border-top: 1px solid var(--chalk-line); }
+.crow:last-child { border-bottom: 1px solid var(--chalk-line); }
+.s-dark .crow { border-color: var(--iron-line); }
+.chead { border-top: none; padding-bottom: 24px; font-family: "IBM Plex Mono", monospace;
+  font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel); }
+.chead .c1 { color: var(--red); }
+.s-chalk .chead .c2 { color: var(--ink); }
+.s-dark  .chead .c2 { color: #fff; }
+.crow .ck { font-size: 31px; padding-right: 20px; }
+.s-chalk .crow .ck { color: var(--ink-soft); }
+.s-dark  .crow .ck { color: var(--steel-lt); }
+.crow .cv { font-family: "IBM Plex Mono", monospace; font-size: 30px; font-weight: 500; }
+.crow .cv1 { color: var(--red-deep); }
+.s-dark .crow .cv1 { color: var(--red); }
+.s-chalk .crow .cv2 { color: var(--ink); }
+.s-dark  .crow .cv2 { color: #fff; }
+</style></head><body><div class="slide s-cover" data-document-role="page" data-label="Úvod">
+      <div class="bg"></div><div class="shade"></div>
+      <div class="cover-inner">
+        <div class="cover-top"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><span class="counter"><b>01</b> / 08</span></div>
+        <div class="cover-body">
+          <div class="eyebrow">Biomechanika · Technika</div>
+          <h2 class="cover-title">Tvoje páky<em>rozhodují o technice</em></h2>
+          <p class="cover-sub">Délka končetin a stavba těla mění, jak vypadá tvůj správný dřep, tah i bench. Vizuálně.</p>
+          <div class="cover-foot"><span class="swipe">Swipe <svg viewBox="0 0 30 18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9h24M20 3l6 6-6 6"/></svg></span></div>
+        </div>
+      </div></div>
+<div class="slide s-chalk" data-document-role="page" data-label="Princip">
+      <div class="knurl"><div class="knurl-fill"></div></div>
+      <div class="head-row"><div class="eyebrow">Princip</div><span class="counter"><b>02</b> / 08</span></div>
+      <h2 class="slide-h">Sílu limituje i <span class="hl">tvoje kostra.</span></h2>
+      <p class="body-copy">Kolik uzvedneš, neurčují jen svaly, ale i páky — délky kostí a jejich poměry. Stejná „správná" technika proto vypadá u každého trochu jinak.</p>
+      <div class="callout"><div class="k">Páka</div><div class="v">Delší páka = větší nároky na sílu.</div></div>
+      <div class="foot-row"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><div class="rail">Teorie</div></div></div>
+<div class="slide s-chalk" data-document-role="page" data-label="Dřep">
+  <div class="knurl"><div class="knurl-fill"></div></div>
+  <div class="head-row"><div class="eyebrow">Dřep · Femur</div><span class="counter"><b>03</b> / 08</span></div>
+  <div class="chart-wrap"><h3 class="chart-title">Femur mění předklon</h3><p class="chart-note">// bar drží nad středem chodidla — delší femur to platí větším předklonem.</p>
+  <svg class="chart" viewBox="0 0 980 560" preserveAspectRatio="xMidYMid meet"><line x1="164" y1="430" x2="250" y2="430" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="207" y1="78" x2="207" y2="446" stroke="#6B7686" stroke-width="2" stroke-dasharray="7 7"/><line x1="210" y1="430" x2="300" y2="338" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="300" y1="338" x2="180" y2="255" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="180" y1="255" x2="236" y2="140" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><line x1="236" y1="140" x2="232" y2="146" stroke="#14161B" stroke-width="7" stroke-linecap="round"/><circle cx="246" cy="108" r="22" fill="none" stroke="#14161B" stroke-width="8"/><circle cx="210" cy="430" r="6" fill="#14161B"/><circle cx="300" cy="338" r="6" fill="#14161B"/><circle cx="180" cy="255" r="6" fill="#14161B"/><circle cx="236" cy="140" r="6" fill="#14161B"/><circle cx="232" cy="146" r="17" fill="#D93A21"/><circle cx="232" cy="146" r="8" fill="#fff"/><text x="207" y="482" text-anchor="middle" font-family="Archivo, sans-serif" font-size="25" font-weight="800" fill="#14161B">Dlouhý femur</text><text x="207" y="512" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">víc předklon · hýždě/záda</text><line x1="594" y1="430" x2="680" y2="430" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="637" y1="62" x2="637" y2="446" stroke="#6B7686" stroke-width="2" stroke-dasharray="7 7"/><line x1="640" y1="430" x2="690" y2="322" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="690" y1="322" x2="642" y2="235" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="642" y1="235" x2="648" y2="125" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><line x1="648" y1="125" x2="644" y2="131" stroke="#14161B" stroke-width="7" stroke-linecap="round"/><circle cx="654" cy="92" r="22" fill="none" stroke="#14161B" stroke-width="8"/><circle cx="640" cy="430" r="6" fill="#14161B"/><circle cx="690" cy="322" r="6" fill="#14161B"/><circle cx="642" cy="235" r="6" fill="#14161B"/><circle cx="648" cy="125" r="6" fill="#14161B"/><circle cx="644" cy="131" r="17" fill="#D93A21"/><circle cx="644" cy="131" r="8" fill="#fff"/><text x="637" y="482" text-anchor="middle" font-family="Archivo, sans-serif" font-size="25" font-weight="800" fill="#14161B">Krátký femur</text><text x="637" y="512" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">vzpřímeně · quady</text></svg></div>
+  <div class="foot-row"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><span class="counter" style="color:var(--steel)">stavba &gt; technika</span></div>
+</div>
+<div class="slide s-chalk" data-document-role="page" data-label="Mrtvý tah">
+  <div class="knurl"><div class="knurl-fill"></div></div>
+  <div class="head-row"><div class="eyebrow">Mrtvý tah · Paže</div><span class="counter"><b>04</b> / 08</span></div>
+  <div class="chart-wrap"><h3 class="chart-title">Paže mění úhel zad</h3><p class="chart-note">// dlouhé paže = nemusíš tak klesnout → vzpřímenější záda a kratší dráha.</p>
+  <svg class="chart" viewBox="0 0 980 560" preserveAspectRatio="xMidYMid meet"><line x1="189" y1="430" x2="300" y2="430" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="244.5" y1="106" x2="244.5" y2="446" stroke="#6B7686" stroke-width="2" stroke-dasharray="7 7"/><line x1="235" y1="430" x2="270" y2="356" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="270" y1="356" x2="205" y2="265" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="205" y1="265" x2="252" y2="168" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><line x1="252" y1="168" x2="250" y2="414" stroke="#14161B" stroke-width="7" stroke-linecap="round"/><circle cx="268" cy="136" r="22" fill="none" stroke="#14161B" stroke-width="8"/><circle cx="235" cy="430" r="6" fill="#14161B"/><circle cx="270" cy="356" r="6" fill="#14161B"/><circle cx="205" cy="265" r="6" fill="#14161B"/><circle cx="252" cy="168" r="6" fill="#14161B"/><circle cx="250" cy="414" r="17" fill="#D93A21"/><circle cx="250" cy="414" r="8" fill="#fff"/><text x="244.5" y="482" text-anchor="middle" font-family="Archivo, sans-serif" font-size="25" font-weight="800" fill="#14161B">Dlouhé paže</text><text x="244.5" y="512" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">vzpřímeně · kratší dráha</text><line x1="589" y1="430" x2="700" y2="430" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="644.5" y1="178" x2="644.5" y2="446" stroke="#6B7686" stroke-width="2" stroke-dasharray="7 7"/><line x1="635" y1="430" x2="670" y2="354" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="670" y1="354" x2="600" y2="310" stroke="#14161B" stroke-width="8" stroke-linecap="round"/><line x1="600" y1="310" x2="665" y2="238" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><line x1="665" y1="238" x2="650" y2="414" stroke="#14161B" stroke-width="7" stroke-linecap="round"/><circle cx="683" cy="208" r="22" fill="none" stroke="#14161B" stroke-width="8"/><circle cx="635" cy="430" r="6" fill="#14161B"/><circle cx="670" cy="354" r="6" fill="#14161B"/><circle cx="600" cy="310" r="6" fill="#14161B"/><circle cx="665" cy="238" r="6" fill="#14161B"/><circle cx="650" cy="414" r="17" fill="#D93A21"/><circle cx="650" cy="414" r="8" fill="#fff"/><text x="644.5" y="482" text-anchor="middle" font-family="Archivo, sans-serif" font-size="25" font-weight="800" fill="#14161B">Krátké paže</text><text x="644.5" y="512" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">hlubší hinge · delší dráha</text></svg></div>
+  <div class="foot-row"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><span class="counter" style="color:var(--steel)">delší páka = víc práce zad</span></div>
+</div>
+<div class="slide s-chalk" data-document-role="page" data-label="Bench">
+  <div class="knurl"><div class="knurl-fill"></div></div>
+  <div class="head-row"><div class="eyebrow">Bench · Paže</div><span class="counter"><b>05</b> / 08</span></div>
+  <div class="chart-wrap"><h3 class="chart-title">Paže mění dráhu činky</h3><p class="chart-note">// krátké paže a klenutý hrudník zkrátí dráhu — méně práce na stejnou váhu.</p>
+  <svg class="chart" viewBox="0 0 980 560" preserveAspectRatio="xMidYMid meet"><line x1="120" y1="390" x2="390" y2="390" stroke="#14161B" stroke-width="10" stroke-linecap="round"/><line x1="135" y1="374" x2="310" y2="374" stroke="#6B7686" stroke-width="30" stroke-linecap="round"/><path d="M 245 374 Q 277 324 310 374" fill="none" stroke="#14161B" stroke-width="6"/><circle cx="337" cy="364" r="17" fill="none" stroke="#14161B" stroke-width="8"/><line x1="310" y1="374" x2="310" y2="244.75" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><line x1="310" y1="244.75" x2="310" y2="139" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><circle cx="310" cy="374" r="6" fill="#14161B"/><circle cx="310" cy="244.75" r="6" fill="#14161B"/><circle cx="310" cy="139" r="17" fill="#D93A21"/><circle cx="310" cy="139" r="8" fill="#fff"/><line x1="363" y1="332" x2="363" y2="139" stroke="#D93A21" stroke-width="4"/><path d="M 363 139 l -7 12 l 14 0 z" fill="#D93A21"/><path d="M 363 332 l -7 -12 l 14 0 z" fill="#D93A21"/><line x1="120" y1="332" x2="379" y2="332" stroke="#6B7686" stroke-width="1.5" stroke-dasharray="6 6"/><line x1="120" y1="139" x2="379" y2="139" stroke="#6B7686" stroke-width="1.5" stroke-dasharray="6 6"/><text x="403" y="235.5" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">dráha</text><text x="255" y="442" text-anchor="middle" font-family="Archivo, sans-serif" font-size="25" font-weight="800" fill="#14161B">Dlouhé paže</text><text x="255" y="472" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">delší dráha · těžší</text><line x1="555" y1="390" x2="825" y2="390" stroke="#14161B" stroke-width="10" stroke-linecap="round"/><line x1="570" y1="374" x2="745" y2="374" stroke="#6B7686" stroke-width="30" stroke-linecap="round"/><path d="M 680 374 Q 712 274 745 374" fill="none" stroke="#14161B" stroke-width="6"/><circle cx="772" cy="364" r="17" fill="none" stroke="#14161B" stroke-width="8"/><line x1="745" y1="374" x2="745" y2="291.5" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><line x1="745" y1="291.5" x2="745" y2="224" stroke="#14161B" stroke-width="9" stroke-linecap="round"/><circle cx="745" cy="374" r="6" fill="#14161B"/><circle cx="745" cy="291.5" r="6" fill="#14161B"/><circle cx="745" cy="224" r="17" fill="#D93A21"/><circle cx="745" cy="224" r="8" fill="#fff"/><line x1="798" y1="282" x2="798" y2="224" stroke="#D93A21" stroke-width="4"/><path d="M 798 224 l -7 12 l 14 0 z" fill="#D93A21"/><path d="M 798 282 l -7 -12 l 14 0 z" fill="#D93A21"/><line x1="555" y1="282" x2="814" y2="282" stroke="#6B7686" stroke-width="1.5" stroke-dasharray="6 6"/><line x1="555" y1="224" x2="814" y2="224" stroke="#6B7686" stroke-width="1.5" stroke-dasharray="6 6"/><text x="838" y="253" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">dráha</text><text x="690" y="442" text-anchor="middle" font-family="Archivo, sans-serif" font-size="25" font-weight="800" fill="#14161B">Krátké paže + hrudník</text><text x="690" y="472" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="400" fill="#D93A21">kratší dráha · výhoda</text></svg></div>
+  <div class="foot-row"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><span class="counter" style="color:var(--steel)">kratší dráha = výhoda</span></div>
+</div>
+<div class="slide s-dark" data-document-role="page" data-label="Co s tím">
+      <div class="head-row"><div class="eyebrow">Co s tím · Nastav si to</div><span class="counter"><b>06</b> / 08</span></div>
+      <div class="steps"><div class="step"><div class="num">1</div><div><h4 class="st-h">Dřep</h4><p class="st-b">Dlouhý femur? Zkus širší stoj a nižší uložení osy (low-bar) — zkrátíš dráhu a udržíš balanc.</p><div class="st-m">širší stoj · <b>low-bar</b></div></div></div><div class="step"><div class="num">2</div><div><h4 class="st-h">Mrtvý tah</h4><p class="st-b">Krátké paže nebo dlouhý trup? Sumo zkrátí dráhu a napřímí záda.</p><div class="st-m">zvaž <b>sumo</b></div></div></div><div class="step"><div class="num">3</div><div><h4 class="st-h">Bench</h4><p class="st-b">Dlouhé paže? Širší úchop a nastavený most zkrátí dráhu činky.</p><div class="st-m">úchop + <b>most</b></div></div></div></div>
+      <div class="foot-row"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><span class="counter" style="color:var(--steel-lt)"></span></div></div>
+<div class="slide s-dark" data-document-role="page" data-label="Není výmluva">
+      <div class="knurl"><div class="knurl-fill"></div></div>
+      <div class="head-row"><div class="eyebrow">Realita</div><span class="counter"><b>07</b> / 08</span></div>
+      <h2 class="slide-h">Páky nezměníš. <span class="hl">Nastavení ano.</span></h2>
+      <p class="body-copy">Anatomii nepřetrénuješ — ale výběrem stylu, stoje a úchopu z ní vytěžíš maximum. A hlavně: páky vysvětlují jen část výkonu. Nejvíc pořád rozhoduje svalová hmota a dřina.</p>
+      <div class="callout"><div class="k">Pozn.</div><div class="v">Optimalizuj páky, ale makej na svalech.</div></div>
+      <div class="foot-row"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><div class="rail">Pointa</div></div></div>
+<div class="slide s-dark" data-document-role="page" data-label="Závěr">
+      <div class="head-row"><div class="brand"><span class="brand-mark"><svg class="brain-ico" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M36 88 C 30 66 40 52 56 54 C 54 40 74 38 80 52 C 86 40 104 40 108 54 C 116 42 134 44 136 56 C 148 46 166 54 168 72 C 178 84 176 100 162 106 C 158 118 146 120 138 114 C 136 126 128 136 120 134 C 116 138 112 130 114 120 C 98 124 78 124 68 114 C 58 120 44 114 44 102 C 34 100 32 94 36 88 Z"/><path d="M58 72 C 70 76 70 90 58 94"/><path d="M84 64 C 96 70 94 86 82 90"/><path d="M110 66 C 124 72 122 90 108 94"/><path d="M140 74 C 152 82 148 96 136 98"/><path d="M92 100 C 106 104 108 118 96 120"/></svg><span class="fa"><i>F</i>A</span></span></div><span class="counter"><b>08</b> / 08</span></div>
+      <div class="cta-body">
+        <div class="eyebrow" style="margin-bottom:26px">Ulož si to</div>
+        <h2 class="cta-h">Trénuj podle <em>svý stavby.</em></h2>
+        <div class="cta-actions">
+          <span class="pill pill-solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg> Ulož příspěvek</span>
+          <span class="pill pill-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Sleduj profil</span>
+        </div>
+        <div class="cta-next">Máš páky spíš do dřepu, nebo do tahu? <b>Napiš do komentářů →</b></div>
+      </div></div>
+</body></html>
